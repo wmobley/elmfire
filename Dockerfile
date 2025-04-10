@@ -1,6 +1,10 @@
 FROM ubuntu:22.04 AS intermediate
 ENV DEBIAN_FRONTEND noninteractive
 
+LABEL maintainer="TACC-DSO <DSO@tacc.utexas.edu>"
+
+USER root
+
 RUN mkdir -p /elmfire/elmfire /scratch/elmfire && \
     apt-get update -y && \
     apt-get upgrade -y && \
