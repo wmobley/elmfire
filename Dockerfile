@@ -1,18 +1,50 @@
-FROM  ubuntu:noble-20250127
+FROM ubuntu:22.04 AS intermediate
+ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && \
-apt-get -y install sudo
+RUN mkdir -p /elmfire/elmfire /scratch/elmfire && \
+    apt-get update -y && \
+    apt-get upgrade -y && \
+    apt-get install --no-install-recommends -y \
+        bc \
+        build-essential \
+        csvkit \
+        gdal-bin \
+        gfortran \
+        jq \
+        libopenmpi-dev \
+        locales \
+        nano \
+        openmpi-bin \
+        pigz \
+        python3-minimal \
+        python3-pip \
+        sudo \
+        wget && \
+    pip3 install --no-cache-dir google-api-python-client python-dateutil && \
+    python3 -m pip install grpcio grpcio-tools && \
+    locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8
 
-RUN sudo apt-get install -y bc csvkit gdal-bin gfortran git jq libopenmpi-dev \
-openmpi-bin pigz python3 python3-pip unzip wget zip 
 
-RUN sudo pip3 install google-api-python-client grpcio grpcio-tools python-dateutil \
---break-system-packages
+FROM intermediate
 
-RUN git clone --branch 2025.0212 --single-branch https://github.com/lautenberger/elmfire.git
+COPY . /elmfire/elmfire
 
-COPY run.sh /bin/run.sh
+WORKDIR /elmfire/elmfire/build/linux
+RUN ./make_gnu.sh
 
-RUN chmod +x /bin/run.sh
+RUN apt-get purge -y build-essential && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -f -r /var/lib/apt/lists/*
 
-ENTRYPOINT [ "run.sh" ]
+WORKDIR /elmfire
+
+ENV ELMFIRE_VER=2025.0212
+ENV ELMFIRE_BASE_DIR=/elmfire/elmfire
+ENV ELMFIRE_SCRATCH_BASE=/scratch/elmfire
+ENV ELMFIRE_INSTALL_DIR=$ELMFIRE_BASE_DIR/build/linux/bin
+ENV CLOUDFIRE_SERVER=worldgen.cloudfire.io
+ENV PATH=$PATH:$ELMFIRE_INSTALL_DIR:$ELMFIRE_BASE_DIR/cloudfire
+COPY --chmod=755 run.sh /tapis/run.sh
+
+ENTRYPOINT [ "/tapis/run.sh" ]
