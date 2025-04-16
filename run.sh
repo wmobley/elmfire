@@ -1,9 +1,13 @@
 #!/bin/bash
 
-echo "Run ElmFire"
+pwd
+env
+ls -ld ${ELMFIRE_BASE_DIR}
 
-cd $ELMFIRE_BASE_DIR/tutorials/01-constant-wind
+cp -r ${ELMFIRE_BASE_DIR} ${_tapisExecSystemExecDir}
+ls -ld ${_tapisExecSystemExecDir}
+cd ${_tapisExecSystemExecDir}/elmfire/tutorials/01-constant-wind
 ./01-run.sh
 
-ls 
-cp -r outputs $SCRATCH
+ls
+cp -r outputs ${_tapisExecSystemOutputDir}
