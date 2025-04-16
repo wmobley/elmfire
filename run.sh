@@ -4,9 +4,9 @@ pwd
 env
 ls -ld ${ELMFIRE_BASE_DIR}
 
-cp $ELMFIRE_BASE_DIR ${_tapisExecSystemExecDir}
+cp -r ${ELMFIRE_BASE_DIR} ${_tapisExecSystemExecDir}
 ls -ld ${_tapisExecSystemExecDir}
-cd ${_tapisExecSystemExecDir}
+cd ${_tapisExecSystemExecDir}/${ELMFIRE_BASE_DIR}
 ./01-run.sh
 
 ls
