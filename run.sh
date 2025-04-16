@@ -3,6 +3,7 @@
 set -xe
 echo "Run ElmFire"
 
+pwd
 env
 ls -l /
 ls -l /elmfire
