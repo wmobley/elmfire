@@ -71,7 +71,7 @@ replace_line DTDUMP $SIMULATION_TSTOP no
 replace_line A_SRS "$A_SRS" yes
 replace_line 'X_IGN(1)' $XCEN no
 replace_line 'Y_IGN(1)' $YCEN no
-
+ls ./inputs/
 # Execute ELMFIRE
 elmfire_$ELMFIRE_VER ./inputs/elmfire.data
 ls ./outputs/
