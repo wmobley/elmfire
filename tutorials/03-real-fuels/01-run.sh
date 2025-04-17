@@ -3,11 +3,11 @@
 # Get fuel data for a tile:
 $ELMFIRE_BASE_DIR/cloudfire/fuel_wx_ign.py \
     --do_wx=False --do_ignition=False \
-    --center_lon=-120.281 --center_lat=37.440 \
+    --center_lon=-104.00304 --center_lat=30.633154 \
     --fuel_source='landfire' --fuel_version='2.4.0' \
     --outdir='./fuel' --name='tutorial03'
 
-SIMULATION_TSTOP=22200.0 # Simulation stop time (seconds)
+SIMULATION_TSTOP=259200.0 # Simulation stop time (seconds)
 WX_INPUTS_FILE=wx.csv
 
 # End specifing inputs - no need to edit from here down
