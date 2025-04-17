@@ -74,7 +74,7 @@ replace_line 'Y_IGN(1)' $YCEN no
 
 # Execute ELMFIRE
 elmfire_$ELMFIRE_VER ./inputs/elmfire.data
-
+ls ./outputs/
 # Postprocess
 for f in ./outputs/*.bil; do
    gdal_translate -a_srs "$A_SRS" -co "COMPRESS=DEFLATE" -co "ZLEVEL=9" $f ./outputs/`basename $f | cut -d. -f1`.tif
