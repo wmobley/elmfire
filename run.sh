@@ -11,3 +11,4 @@ cd ${_tapisExecSystemExecDir}/elmfire/tutorials/03-real-fuels/
 
 ls
 cp -r outputs ${_tapisExecSystemOutputDir}
+cp -r inputs ${_tapisExecSystemOutputDir}
