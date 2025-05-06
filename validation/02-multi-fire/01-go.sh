@@ -2,7 +2,9 @@
 
 FUEL_SOURCE=landfire
 export USE_SLURM=yes
-YEARS=`seq 2016 2025`
+YEARS=`seq 2012 2025`
+STATES='ca or wa id nv az ut mt wy co nm'
+DO_WUI=no
 
 if [ "$FUEL_SOURCE" = "landfire" ]; then
    RUN_TEMPLATE=hindcast
@@ -51,6 +53,11 @@ for YEAR in $YEARS; do
    FIRENAMES=`$AVAILABLE_POLYGONS_CLI --active False --year $YEAR --list fires`
 
    for FIRENAME in $FIRENAMES; do
+      STATE=`echo $FIRENAME | cut -d- -f1`
+      RUN_THIS=`echo $STATES | grep $STATE | wc -l`
+      if [ "$RUN_THIS" = "0" ]; then
+         continue
+      fi
       cd $CWD/$YEAR
       rm -f -r $FIRENAME
       mkdir -p $FIRENAME
@@ -63,7 +70,7 @@ for YEAR in $YEARS; do
                   $ALREADY_BURNED_TIMESTAMP_NUM \
                   $WEST_BUFFER $SOUTH_BUFFER $EAST_BUFFER $NORTH_BUFFER \
                   $NUM_ENSEMBLE_MEMBERS $RUN_HOURS $FUEL_SOURCE ${FUEL_VERSION[YEAR]} \
-                  $RUN_TEMPLATE
+                  $RUN_TEMPLATE $DO_WUI
    done
 done
 

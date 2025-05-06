@@ -4,7 +4,7 @@
 
 CELLSIZE=30.0 # Grid size in meters
 DOMAINSIZE=12000.0 # Height and width of domain in meters
-SIMULATION_TSTOP=259200.0 # Simulation stop time (seconds)
+SIMULATION_TSTOP=22200.0 # Simulation stop time (seconds)
 
 NUM_FLOAT_RASTERS=2
 FLOAT_RASTER[1]=adj  ; FLOAT_VAL[1]=1.0  # Spread rate adjustment factor (-)
@@ -26,7 +26,7 @@ WX_INPUTS_FILE=wx.csv
 
 # End inputs specification
 
-ELMFIRE_VER=${ELMFIRE_VER:-2025.0212}
+ELMFIRE_VER=${ELMFIRE_VER:-2025.0429}
 
 . ../functions/functions.sh
 

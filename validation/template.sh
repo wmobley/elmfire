@@ -13,6 +13,7 @@ RUN_HOURS=${10}
 FUEL_SOURCE=${11}
 FUEL_VERSION=${12}
 RUN_TEMPLATE=${13}
+DO_WUI=${14}
 
 export USE_SLURM=${USE_SLURM:-'no'}
 
@@ -59,8 +60,9 @@ ARGS='{
 "fuelSource": "'$FUEL_SOURCE'",
 "fuelVersion": "'$FUEL_VERSION'",
 "scpInputDeck": "'none'",
-"returnAfterQueue": "'no'",
-"runTemplate": "'$RUN_TEMPLATE'"
+"returnAfterQueue": "'yes'",
+"runTemplate": "'$RUN_TEMPLATE'",
+"doWUI": "'$DO_WUI'"
 }'
 
 rm -f -r ${FIRENAME}_$ACTIVE_FIRE_TIMESTAMP
