@@ -4,10 +4,15 @@ pwd
 env
 ls -ld ${ELMFIRE_BASE_DIR}
 
+echo "Present Variables"
+echo "$1"
+echo "$2"
+
 cp -r ${ELMFIRE_BASE_DIR} ${_tapisExecSystemExecDir}
-ls -ld ${_tapisExecSystemExecDir}
+# ls -ld ${_tapisExecSystemExecDir}
 cd ${_tapisExecSystemExecDir}/elmfire/tutorials/03-real-fuels/
-./01-run.sh
+# cd ${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/
+./01-run.sh $1 $2
 
 ls
 cp -r outputs ${_tapisExecSystemOutputDir}
