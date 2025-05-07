@@ -1,6 +1,8 @@
 #!/bin/bash
-echo $1
-echo $2
+
+echo "Present Variables"
+echo "$1"
+echo "$2"
 # Get fuel data for a tile:
 $ELMFIRE_BASE_DIR/cloudfire/fuel_wx_ign.py \
     --do_wx=False --do_ignition=False \
