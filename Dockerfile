@@ -25,7 +25,7 @@ RUN mkdir -p /elmfire/elmfire /scratch/elmfire && \
         sudo \
         wget && \
     pip3 install --no-cache-dir google-api-python-client python-dateutil && \
-    python3 -m pip install grpcio grpcio-tools && \
+    python3 -m pip install grpcio grpcio-tools rioxarray rasterio  && \
     locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8
 
 

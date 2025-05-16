@@ -27,27 +27,27 @@ cp elmfire.data.in $INPUTS/elmfire.data
 
 tar -xvf ./fuel/tutorial03.tar -C $INPUTS
 
-#clip from local rasters
-conda create -n gdal_elmfire
-conda activate gdal_elmfire
-conda install rioxarray rasterio -y
+# #clip from local rasters
+# conda create -n gdal_elmfire
+# conda activate gdal_elmfire
+# conda install rioxarray rasterio -y
 
 
 input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2022_FBFM40_220_CONUS/Tif/LC22_F40_220.tif
-python clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/fbfm40.tif
+clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/fbfm40.tif
 #CBD
 input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CBD_240_CONUS/Tif/LC23_CBD_240.tif
-python clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cbd.tif
+clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cbd.tif
 #CBH
 input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CBH_240_CONUS/Tif/LC23_CBH_240.tif
-python clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cbh.tif
+clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cbh.tif
 #CC
 input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CC_240_CONUS/Tif/LC23_CC_240.tif
-python clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cc.tif
+clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cc.tif
 #CH
 input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CH_240_CONUS/Tif/LC23_CH_240.tif
-python clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/ch.tif
-conda deactivate
+clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/ch.tif
+# conda deactivate
 
 
 rm -f $INPUTS/m*.tif $INPUTS/w*.tif $INPUTS/l*.tif $INPUTS/ignition*.tif $INPUTS/forecast_cycle.txt

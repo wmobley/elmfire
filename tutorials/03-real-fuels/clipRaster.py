@@ -1,5 +1,4 @@
 import rioxarray # for the extension to load
-import xarray
 import rasterio as rio
 import sys
 
