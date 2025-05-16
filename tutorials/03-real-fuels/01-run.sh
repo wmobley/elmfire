@@ -34,19 +34,19 @@ tar -xvf ./fuel/tutorial03.tar -C $INPUTS
 
 
 input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2022_FBFM40_220_CONUS/Tif/LC22_F40_220.tif
-clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/fbfm40.tif
+${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/fbfm40.tif
 #CBD
 input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CBD_240_CONUS/Tif/LC23_CBD_240.tif
-clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cbd.tif
+${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cbd.tif
 #CBH
 input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CBH_240_CONUS/Tif/LC23_CBH_240.tif
-clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cbh.tif
+${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cbh.tif
 #CC
 input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CC_240_CONUS/Tif/LC23_CC_240.tif
-clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cc.tif
+${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cc.tif
 #CH
 input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CH_240_CONUS/Tif/LC23_CH_240.tif
-clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/ch.tif
+${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/ch.tif
 # conda deactivate
 
 
