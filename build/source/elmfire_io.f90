@@ -992,9 +992,13 @@ DO I = 1, NLINES
 
    IF (ISNODATA == 'NoDataValue') THEN
       READ(LINENOW(18:38),*) TEMPSTR
-      TEMPSTR = STRIP_NON_NUMBERS(TEMPSTR)
-      READ(TEMPSTR,*) RASTER%NODATA_VALUE
-      CONTINUE
+      ! Try to read the value, handle errors
+      READ(TEMPSTR,*, IOSTAT=ios) RASTER%NODATA_VALUE
+      IF (ios /= 0) THEN
+         ! Handle the error - either set a default value or print a warning
+         PRINT *, "Warning: Could not read NoData value from: ", TEMPSTR
+         RASTER%NODATA_VALUE = -9999.0  ! Common default NoData value
+      ENDIF
    ENDIF
 
 ENDDO
