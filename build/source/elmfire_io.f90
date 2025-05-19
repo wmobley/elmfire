@@ -991,15 +991,15 @@ DO I = 1, NLINES
    ENDIF
 
    IF (ISNODATA == 'NoDataValue') THEN
-      READ(LINENOW(18:38),*) TEMPSTR
-      ! Try to read the value, handle errors
-      READ(TEMPSTR,*, IOSTAT=ios) RASTER%NODATA_VALUE
-      IF (ios /= 0) THEN
-         ! Handle the error - either set a default value or print a warning
-         PRINT *, "Warning: Could not read NoData value from: ", TEMPSTR
-         RASTER%NODATA_VALUE = -9999.0  ! Common default NoData value
-      ENDIF
+   READ(LINENOW(18:38),*) TEMPSTR
+   ! Try to read the value, handle errors
+   READ(TEMPSTR,*, IOSTAT=ios) RASTER%NODATA_VALUE
+   IF (ios /= 0) THEN
+      ! Handle the error - either set a default value or print a warning
+      PRINT *, "Warning: Could not read NoData value from: ", TEMPSTR
+      RASTER%NODATA_VALUE = -9999.0  ! Common default NoData value
    ENDIF
+ENDIF
 
 ENDDO
 
@@ -1336,14 +1336,31 @@ ENDIF
 SELECT CASE(TRIM(RASTER%PIXELTYPE))
 
    CASE('FLOAT')
+   IF (DEBUG_LEVEL .GT. 0) THEN
+      WRITE(*,*) 'RASTER dimensions: ', RASTER%NCOLS, RASTER%NROWS, RASTER%NBANDS
+      WRITE(*,*) 'Reading BSQ file: ', TRIM(FNBSQ)
+   ENDIF
 !     Allocate arrays as appropriate:
       IF (.NOT. ASSOCIATED(RASTER%R4)) ALLOCATE(RASTER%R4(1:RASTER%NCOLS,1:RASTER%NROWS,1:RASTER%NBANDS))
       ALLOCATE(RVALUES(1:RASTER%NROWS*RASTER%NCOLS))
+      ALLOCATE(RVALUES(1:RASTER%NROWS*RASTER%NCOLS), STAT=IOS)
+      IF (IOS /= 0) THEN
+         WRITE(*,*) 'Memory allocation failed for RVALUES'
+         STOP
+      ENDIF
       ALLOCATE(RTEMP(1:RASTER%NCOLS,1:RASTER%NROWS))
+      IF (IOS /= 0) THEN
+         WRITE(*,*) 'Memory allocation failed for RTEMP'
+         STOP
+      ENDIF
 
 !Open raster bsq file:
       INQUIRE (IOLENGTH=LRECL) RVALUES(:) 
 
+      IF (.NOT. BSQ_EXISTS) THEN
+         WRITE(*,*) 'BSQ file does not exist: ', TRIM(FNBSQ)
+         STOP
+      ENDIF
       OPEN(LUINPUT, FILE=TRIM(FNBSQ), ACCESS='DIRECT', STATUS='OLD', RECL=LRECL, IOSTAT=IOS) 
       IF (IOS .GT. 0) THEN
          WRITE(*,*) 'Problem opening raster file ', TRIM(FNBSQ)
@@ -1352,9 +1369,17 @@ SELECT CASE(TRIM(RASTER%PIXELTYPE))
 
       DO IBAND = 1, RASTER%NBANDS
          READ(LUINPUT,REC=IBAND,IOSTAT=IOS) RVALUES(:)
+         IF (SIZE(RVALUES) /= RASTER%NCOLS*RASTER%NROWS) THEN
+            WRITE(*,*) 'Array size mismatch for reshaping'
+            STOP
+         ENDIF
          RTEMP(:,:) = RESHAPE(RVALUES, (/RASTER%NCOLS,RASTER%NROWS/))
          DO IROW1 = 1, RASTER%NROWS
             IROW2 = RASTER%NROWS + 1 - IROW1 
+            IF (IROW2 < 1 .OR. IROW2 > RASTER%NROWS) THEN
+               WRITE(*,*) 'Array index out of bounds'
+               STOP
+            ENDIF
             RASTER%R4(:,IROW1,IBAND) = RTEMP(:,IROW2)
          ENDDO
       ENDDO
@@ -1362,6 +1387,11 @@ SELECT CASE(TRIM(RASTER%PIXELTYPE))
       DEALLOCATE(RVALUES, RTEMP)
 
    CASE('SIGNEDINT')
+   IF (DEBUG_LEVEL .GT. 0) THEN
+      WRITE(*,*) 'RASTER dimensions: ', RASTER%NCOLS, RASTER%NROWS, RASTER%NBANDS
+      WRITE(*,*) 'Reading BSQ file: ', TRIM(FNBSQ)
+   ENDIF
+
 !     Allocate arrays as appropriate:
       IF (.NOT. ASSOCIATED(RASTER%I2)) ALLOCATE(RASTER%I2(1:RASTER%NCOLS,1:RASTER%NROWS,1:RASTER%NBANDS) )
       ALLOCATE(I2VALUES(1:RASTER%NROWS*RASTER%NCOLS))
