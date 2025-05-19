@@ -58,7 +58,7 @@ function install_conda() {
 
 function create_conda_environment() {
 
-	conda env create -n gdal_elmfire rioxarray rasterio --yes
+	conda create -n gdal_elmfire rioxarray rasterio --yes
 	
 }
 
