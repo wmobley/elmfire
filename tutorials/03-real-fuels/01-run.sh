@@ -33,22 +33,72 @@ tar -xvf ./fuel/tutorial03.tar -C $INPUTS
 # conda install rioxarray rasterio -y
 
 
-input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2022_FBFM40_220_CONUS/Tif/LC22_F40_220.tif
-${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/fbfm40.tif
-#CBD
-input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CBD_240_CONUS/Tif/LC23_CBD_240.tif
-${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cbd.tif
-#CBH
-input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CBH_240_CONUS/Tif/LC23_CBH_240.tif
-${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cbh.tif
-#CC
-input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CC_240_CONUS/Tif/LC23_CC_240.tif
-${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cc.tif
-#CH
-input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CH_240_CONUS/Tif/LC23_CH_240.tif
-${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/ch.tif
-# conda deactivate
 
+function install_conda() {
+	echo "Checking if miniconda3 is installed..."
+	if [ ! -d "$WORK/miniconda3" ]; then
+		echo "Miniconda not found in $WORK..."
+		echo "Installing..."
+		mkdir -p "$WORK/miniconda3"
+		curl https://repo.anaconda.com/miniconda/Miniconda3-py311_23.10.0-1-Linux-x86_64.sh -o "$WORK/miniconda3/miniconda.sh"
+		bash "$WORK/miniconda3/miniconda.sh" -b -u -p "$WORK/miniconda3"
+		rm -rf "$WORK/miniconda3/miniconda.sh"
+		export PATH="$WORK/miniconda3/bin:$PATH"
+		echo "Ensuring conda base environment is OFF..."
+		conda config --set auto_activate_base false
+	else
+		export PATH="$WORK/miniconda3/bin:$PATH"
+	fi
+	conda init bash
+	echo "Sourcing .bashrc..."
+	source ~/.bashrc
+	unset PYTHONPATH
+}
+
+
+function create_conda_environment() {
+
+	conda env create -n gdal_elmfire rioxarray rasterio --yes
+	
+}
+
+
+function conda_environment_exists() {
+	conda env list | grep "${COOKBOOK_CONDA_ENV}"
+}
+
+function handle_installation() {
+	
+		if { conda_environment_exists; } >/dev/null 2>&1; then
+			echo "Conda environment already exists"
+		else
+			create_conda_environment
+		fi
+}
+
+function clip_rasters(){
+   conda activate gdal_elmfire
+      
+   input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2022_FBFM40_220_CONUS/Tif/LC22_F40_220.tif
+   ${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/fbfm40.tif
+   #CBD
+   input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CBD_240_CONUS/Tif/LC23_CBD_240.tif
+   ${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cbd.tif
+   #CBH
+   input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CBH_240_CONUS/Tif/LC23_CBH_240.tif
+   ${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cbh.tif
+   #CC
+   input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CC_240_CONUS/Tif/LC23_CC_240.tif
+   ${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/cc.tif
+   #CH
+   input_raster=/corral-repl/tacc/aci/PT2050/projects/PTDATAX-250/ElmfireInputs/LF2023_CH_240_CONUS/Tif/LC23_CH_240.tif
+   ${ELMFIRE_BASE_DIR}/tutorials/03-real-fuels/clipRaster.py $input_raster $INPUTS/dem.tif $INPUTS/ch.tif
+   conda deactivate
+}
+
+install_conda
+handle_installation
+clip_rasters
 
 rm -f $INPUTS/m*.tif $INPUTS/w*.tif $INPUTS/l*.tif $INPUTS/ignition*.tif $INPUTS/forecast_cycle.txt
 
