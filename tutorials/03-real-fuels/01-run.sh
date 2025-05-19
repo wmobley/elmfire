@@ -148,7 +148,7 @@ replace_line 'X_IGN(1)' $XCEN no
 replace_line 'Y_IGN(1)' $YCEN no
 
 # Execute ELMFIRE
-elmfire_$ELMFIRE_VER ./inputs/elmfire.data
+elmfire ./inputs/elmfire.data
 
 # Postprocess
 for f in ./outputs/*.bil; do
