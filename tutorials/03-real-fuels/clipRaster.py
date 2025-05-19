@@ -17,7 +17,7 @@ def clip_raster(input_raster, reference_raster, output_raster):
             maxx=dataset.bounds.right,
             maxy=dataset.bounds.top,
             crs=dataset.crs,
-        ).rio.to_raster(output_raster, driver="GTiff", compress="LZW")
+        ).rio.reproject(dataset.crs).to_raster(output_raster, driver="GTiff", compress="LZW")
 
 if __name__ == '__main__':
     
