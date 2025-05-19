@@ -92,7 +92,8 @@ replace_line DTDUMP $SIMULATION_TSTOP no
 replace_line A_SRS "$A_SRS" yes
 
 # Execute ELMFIRE
-elmfire_$ELMFIRE_VER ./inputs/elmfire.data
+elmfire ./inputs/elmfire.data
+
 
 # Postprocess
 for f in ./outputs/*.bil; do
