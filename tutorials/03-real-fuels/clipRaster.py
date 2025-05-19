@@ -1,6 +1,8 @@
 import rioxarray # for the extension to load
 import rasterio as rio
 import sys
+from rasterio.warp import calculate_default_transform, reproject, Resampling
+import numpy as np
 
 
 def clip_raster(input_raster, reference_raster, output_raster, target_size=2000):
