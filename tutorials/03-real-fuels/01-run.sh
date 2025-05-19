@@ -64,7 +64,7 @@ function create_conda_environment() {
 
 
 function conda_environment_exists() {
-	conda env list | grep "${COOKBOOK_CONDA_ENV}"
+	conda env list | grep "gdal_elmfire"
 }
 
 function handle_installation() {
