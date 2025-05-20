@@ -15,6 +15,7 @@ RUN mkdir -p /elmfire/elmfire /scratch/elmfire && \
         gdal-bin \
         gfortran \
         jq \
+        compgen \
         libopenmpi-dev \
         locales \
         nano \

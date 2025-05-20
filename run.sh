@@ -7,7 +7,7 @@ ls -ld ${ELMFIRE_BASE_DIR}
 echo "Present Variables"
 echo "$1"
 echo "$2"
-
+compgen -A builtin elmfire
 cp -r ${ELMFIRE_BASE_DIR} ${_tapisExecSystemExecDir}
 # ls -ld ${_tapisExecSystemExecDir}
 cd ${_tapisExecSystemExecDir}/elmfire/tutorials/03-real-fuels/
