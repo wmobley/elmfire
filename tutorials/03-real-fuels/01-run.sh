@@ -27,13 +27,6 @@ cp elmfire.data.in $INPUTS/elmfire.data
 
 tar -xvf ./fuel/tutorial03.tar -C $INPUTS
 
-# #clip from local rasters
-# conda create -n gdal_elmfire
-# conda activate gdal_elmfire
-# conda install rioxarray rasterio -y
-
-
-
 function install_conda() {
 	echo "Checking if miniconda3 is installed..."
 	if [ ! -d "$WORK/miniconda3" ]; then
@@ -147,8 +140,10 @@ replace_line A_SRS "$A_SRS" yes
 replace_line 'X_IGN(1)' $XCEN no
 replace_line 'Y_IGN(1)' $YCEN no
 
+
+echo "Run Elmfire"
 # Execute ELMFIRE
-elmfire ./inputs/elmfire.data
+elmfire_$ELMFIRE_VER ./inputs/elmfire.data
 
 # Postprocess
 for f in ./outputs/*.bil; do
