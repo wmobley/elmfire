@@ -14,6 +14,7 @@ DT_METEOROLOGY                 = 3600.0
 WEATHER_DIRECTORY              = './inputs'
 WS_FILENAME                    = 'ws'
 WD_FILENAME                    = 'wd'
+WS_AT_10M                      = .TRUE.
 M1_FILENAME                    = 'm1'
 M10_FILENAME                   = 'm10'
 M100_FILENAME                  = 'm100'
@@ -60,3 +61,6 @@ T_IGN(1)      = 0.0
 PATH_TO_GDAL                   = '/usr/bin'
 SCRATCH                        = './scratch'
 /
+
+&SUPPRESSION
+ENABLE_INITIAL_ATTACK           = .TRUE.
