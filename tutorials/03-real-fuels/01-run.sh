@@ -91,7 +91,7 @@ function clip_rasters(){
 
 install_conda
 handle_installation
-clip_rasters
+# clip_rasters
 
 rm -f $INPUTS/m*.tif $INPUTS/w*.tif $INPUTS/l*.tif $INPUTS/ignition*.tif $INPUTS/forecast_cycle.txt
 
