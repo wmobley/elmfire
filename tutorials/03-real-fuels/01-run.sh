@@ -9,7 +9,9 @@ $ELMFIRE_BASE_DIR/cloudfire/fuel_wx_ign.py \
     --fuel_source='landfire' --fuel_version='2.3.0' \
     --outdir='./fuel' --name='tutorial03'
 
-SIMULATION_TSTOP=$4 # Simulation stop time (seconds)
+declare -i LINE_COUNT
+LINE_COUNT=$(wc -l < wx.csv)
+SIMULATION_TSTOP=$((LINE_COUNT - 2)) # Simulation stop time (seconds)
 WX_INPUTS_FILE=wx.csv
 
 # End specifing inputs - no need to edit from here down
