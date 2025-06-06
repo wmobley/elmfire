@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cp $3 wx.csv
 
 # Get fuel data for a tile:
 $ELMFIRE_BASE_DIR/cloudfire/fuel_wx_ign.py \
@@ -8,7 +9,7 @@ $ELMFIRE_BASE_DIR/cloudfire/fuel_wx_ign.py \
     --fuel_source='landfire' --fuel_version='2.3.0' \
     --outdir='./fuel' --name='tutorial03'
 
-SIMULATION_TSTOP=375900.0 # Simulation stop time (seconds)
+SIMULATION_TSTOP=$4 # Simulation stop time (seconds)
 WX_INPUTS_FILE=wx.csv
 
 # End specifing inputs - no need to edit from here down
@@ -139,6 +140,7 @@ replace_line DTDUMP $SIMULATION_TSTOP no
 replace_line A_SRS "$A_SRS" yes
 replace_line 'X_IGN(1)' $XCEN no
 replace_line 'Y_IGN(1)' $YCEN no
+replace_line 'NUM_METEOROLOGY_TIMES' $5 no
 
 
 echo "Run Elmfire"
