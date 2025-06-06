@@ -9,9 +9,8 @@ $ELMFIRE_BASE_DIR/cloudfire/fuel_wx_ign.py \
     --fuel_source='landfire' --fuel_version='2.3.0' \
     --outdir='./fuel' --name='tutorial03'
 
-declare -i LINE_COUNT
-LINE_COUNT=$(wc -l < wx.csv)
-SIMULATION_TSTOP=$((LINE_COUNT - 2)) # Simulation stop time (seconds)
+
+SIMULATION_TSTOP=$4 # Simulation stop time (seconds)
 WX_INPUTS_FILE=wx.csv
 
 # End specifing inputs - no need to edit from here down
@@ -133,6 +132,10 @@ for QUANTITY in $COLS; do
    gdal_merge.py -separate -n -9999 -init -9999 -a_nodata -9999 -co "COMPRESS=DEFLATE" -co "ZLEVEL=9" -o $INPUTS/$QUANTITY.tif $FNLIST
 done
 
+declare -i LINE_COUNT
+LINE_COUNT=$(wc -l < wx.csv)
+
+
 # Set inputs in elmfire.data
 replace_line COMPUTATIONAL_DOMAIN_XLLCORNER $XMIN no
 replace_line COMPUTATIONAL_DOMAIN_YLLCORNER $YMIN no
@@ -142,7 +145,7 @@ replace_line DTDUMP $SIMULATION_TSTOP no
 replace_line A_SRS "$A_SRS" yes
 replace_line 'X_IGN(1)' $XCEN no
 replace_line 'Y_IGN(1)' $YCEN no
-replace_line 'NUM_METEOROLOGY_TIMES' $5 no
+replace_line 'NUM_METEOROLOGY_TIMES' $((LINE_COUNT - 2)) no
 
 
 echo "Run Elmfire"
