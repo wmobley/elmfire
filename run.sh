@@ -5,8 +5,7 @@ env
 ls -ld ${ELMFIRE_BASE_DIR}
 
 echo "Present Variables"
-echo "$1"
-echo "$2"
+echo "1 $1, 2 $2, 3 $3, 4 $4"
 find -L $(echo $PATH | tr ":" " ") -name 'elmfire' -type f -perm -001 -print 
 cp -r ${ELMFIRE_BASE_DIR} ${_tapisExecSystemExecDir}
 # ls -ld ${_tapisExecSystemExecDir}
