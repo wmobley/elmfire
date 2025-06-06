@@ -5,7 +5,7 @@
 $ELMFIRE_BASE_DIR/cloudfire/fuel_wx_ign.py \
     --do_wx=False --do_ignition=False \
     --center_lon=$1 --center_lat=$2 \
-    --fuel_source='landfire' --fuel_version='2.4.0' \
+    --fuel_source='landfire' --fuel_version='2.3.0' \
     --outdir='./fuel' --name='tutorial03'
 
 SIMULATION_TSTOP=375900.0 # Simulation stop time (seconds)
@@ -89,9 +89,9 @@ function clip_rasters(){
    conda deactivate
 }
 
-install_conda
-handle_installation
-clip_rasters
+# install_conda
+# handle_installation
+# clip_rasters
 
 rm -f $INPUTS/m*.tif $INPUTS/w*.tif $INPUTS/l*.tif $INPUTS/ignition*.tif $INPUTS/forecast_cycle.txt
 
