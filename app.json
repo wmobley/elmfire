@@ -1,13 +1,13 @@
 {
   "id": "ElmFire",
-  "version": "0.1.0sha-4ecd3a8",
+  "version": "0.1.sha-631ce87",
   "description": "Run an non-interactive script for ElmFire using DOCKER on TACC",
   "owner": "${apiUserId}",
   "enabled": true,
   "runtime": "SINGULARITY",
   "runtimeVersion": null,
   "runtimeOptions": ["SINGULARITY_RUN"],
-  "containerImage": "docker://ghcr.io/wmobley/elmfire:sha-4ecd3a8",
+  "containerImage": "docker://ghcr.io/wmobley/elmfire:sha-631ce87",
   "jobType": "BATCH",
   "maxJobs": -1,
   "maxJobsPerUser": -1,
@@ -40,25 +40,15 @@
           "description": "What is the Latitude of the ignition you want modelled?",
           "inputMode": "REQUIRED",
           "arg": "30.633154"
-        }
-      ],
-       "fileInputs": [
-      {
-        "name": "Weather File",
-        "description": "Weather CSV file. ",
-        "inputMode": "REQUIRED",
-        "autoMountLocal": true,
-        "sourceUrl": null
-            }
-    ],
-    "appArgs": [
-        {
+        },
+         {
           "name": "Simulation Stop Time",
           "description": "Simulation stop time (seconds)",
           "inputMode": "REQUIRED",
           "arg": "-104.0034"
         }
       ],
+       "fileInputs": [],
       "containerArgs": [
         {
           "name": "Jupyter Mounts",
@@ -97,7 +87,17 @@
         "includeLaunchFiles": true
       }
     },
-    "fileInputs": [],
+     "fileInputs": [
+      {
+        "name": "Weather File",
+        "description": "Weather CSV file. ",
+        "inputMode": "REQUIRED",
+        "autoMountLocal": true,
+        "sourceUrl": null,
+        "targetPath": "wx.csv"
+
+            }
+    ],
     "fileInputArrays": [],
     "nodeCount": 1,
     "coresPerNode": 1,
