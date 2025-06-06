@@ -63,6 +63,3 @@ PATH_TO_GDAL                   = '/usr/bin'
 SCRATCH                        = './scratch'
 /
 
-&SUPPRESSION
-ENABLE_INITIAL_ATTACK  =.TRUE.
-INITIAL_ATTACK_TIME    =14400
