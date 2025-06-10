@@ -159,6 +159,6 @@ done
 gdal_contour -i 3600 `ls ./outputs/time_of_arrival*.tif` ./outputs/hourly_isochrones.shp
 
 # Clean up and exit:
-#rm -f -r ./outputs/*.csv ./outputs/*.bil ./outputs/*.hdr $SCRATCH
+rm -f -r ./outputs/*.csv ./outputs/*.bil ./outputs/*.hdr $SCRATCH
 
 exit 0

@@ -14,5 +14,6 @@ cd ${_tapisExecSystemExecDir}/elmfire/tutorials/03-real-fuels/
 ./01-run.sh $1 $2 "${_tapisExecSystemInputDir}/wx.csv" $3 
 
 ls
-cp -r outputs ${_tapisExecSystemOutputDir}
-cp -r inputs ${_tapisExecSystemOutputDir}
+cp outputs/flame_length*.tif ${_tapisExecSystemOutputDir}/flame_length.tif
+cp outputs/time_of_arrival*.tif ${_tapisExecSystemOutputDir}/time_of_arrival.tif
+cp outputs/flin*.tif ${_tapisExecSystemOutputDir}/fire_line_intensity.tif
